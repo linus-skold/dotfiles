@@ -1,0 +1,48 @@
+# Ember — dark graphite, L10%
+# https://github.com/ember-theme/ember
+
+[colors.primary]
+background = "#1c1b19"
+foreground = "#d8d0c0"
+
+[colors.cursor]
+cursor = "#e08060"
+text   = "#1c1b19"
+
+[colors.vi_mode_cursor]
+cursor = "#e08060"
+text   = "#1c1b19"
+
+[colors.selection]
+background = "#3a3830"
+text       = "CellForeground"
+
+[colors.search.matches]
+background = "#c09058"
+foreground = "#1c1b19"
+
+[colors.search.focused_match]
+background = "#e08060"
+foreground = "#1c1b19"
+
+# Normal (0–7)
+[colors.normal]
+black   = "#2c2b28"   # dim surface
+red     = "#b07878"   # rose
+green   = "#8a9868"   # olive
+yellow  = "#c8b468"   # gold
+blue    = "#7890a0"   # steel
+magenta = "#988090"   # mauve
+cyan    = "#80a090"   # sage
+white   = "#d8d0c0"   # foreground
+
+# Bright (8–15)
+[colors.bright]
+black   = "#504e4a"   # comments / dim text
+red     = "#e08060"   # coral — hero accent
+green   = "#9aaa78"   # brighter olive
+yellow  = "#c09058"   # orange
+blue    = "#88a0b0"   # brighter steel
+magenta = "#a890a0"   # brighter mauve
+cyan    = "#90b0a0"   # brighter sage
+white   = "#ece4d4"   # bright foreground

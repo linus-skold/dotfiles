@@ -1,0 +1,12 @@
+[general]
+import = [
+    "~/themes/alacritty/ember.toml"
+]
+
+[terminal]
+shell = "zellij"
+
+[font]
+normal = { family = "CaskaydiaMono Nerd Font Mono", style = "Regular" }
+
+

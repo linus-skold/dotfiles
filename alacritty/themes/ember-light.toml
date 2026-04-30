@@ -1,0 +1,48 @@
+# Ember Light — warm ivory, L84%
+# https://github.com/ember-theme/ember
+
+[colors.primary]
+background = "#e6dac4"
+foreground = "#282418"
+
+[colors.cursor]
+cursor = "#b84c30"
+text   = "#e6dac4"
+
+[colors.vi_mode_cursor]
+cursor = "#b84c30"
+text   = "#e6dac4"
+
+[colors.selection]
+background = "#c8bc9c"
+text       = "CellForeground"
+
+[colors.search.matches]
+background = "#946030"
+foreground = "#e6dac4"
+
+[colors.search.focused_match]
+background = "#b84c30"
+foreground = "#e6dac4"
+
+# Normal (0–7)
+[colors.normal]
+black   = "#282418"   # foreground (dark text on light bg)
+red     = "#905050"   # rose light
+green   = "#4a6830"   # olive light
+yellow  = "#7a6820"   # gold light
+blue    = "#3a6080"   # steel light
+magenta = "#706070"   # mauve light
+cyan    = "#386858"   # sage light
+white   = "#c0b49a"   # dim surface
+
+# Bright (8–15)
+[colors.bright]
+black   = "#4a4438"   # slightly lighter dark
+red     = "#b84c30"   # coral light — hero accent
+green   = "#5a7840"   # brighter olive light
+yellow  = "#946030"   # orange light
+blue    = "#4a7090"   # brighter steel light
+magenta = "#806880"   # brighter mauve light
+cyan    = "#487870"   # brighter sage light
+white   = "#382c1c"   # deeper foreground

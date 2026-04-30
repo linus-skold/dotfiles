@@ -1,0 +1,17 @@
+[".gitignore"]
+win = '~/.gitignore'
+
+[Zellij]
+win = '~/AppData/Roaming/Zellij'
+
+[alacritty]
+win = '~/AppData/Roaming/alacritty'
+
+[gitconfig-win]
+win = '~/.gitconfig'
+
+[nushell-config]
+win = '~/AppData/Roaming/nushell/config.nu'
+
+[nvim]
+win = '~/AppData/Local/nvim'

@@ -1,0 +1,17 @@
+[alias]
+    co = checkout
+    br = branch
+    unstage = !git reset HEAD --
+    smi = !git submodule update --init --recursive --progress
+    sma = !git submodule add
+    ls = !git log --pretty=oneline --abbrev-commit 
+    gl = !git log --pretty=oneline --graph --abbrev-commit
+    s = status
+    rp = !git branch --show-current | xargs git push -u origin
+    backup = !git co -b "backup/$(git rev-parse --abbrev-ref HEAD)"
+    bclean = !git br | grep -v ${1-main} | echo
+    cbr = !git branch --sort=-committerdate  | fzf --header \"Checkout Recent Branch\" --preview \"git diff --color=always {1} | delta \" | xargs git checkout
+    cbrr = !git branch --remote --sort=-committerdate | fzf --header \"Checkout Remote Branch\" --preview \"git diff --color=always {1} | delta \" | xargs | sed 's|^origin/||' | xargs git checkout
+    compare = !git branch --sort=-committerdate  | fzf --header \"Checkout Recent Branch\" --preview \"git diff --color=always {1} | delta \"
+    lt = !git log --color=always --pretty=format:\"%C(auto)%h%Creset %C(yellow)%d%Creset %C(cyan)%s%Creset %C(red)%an%Creset\" | head -n 25
+
