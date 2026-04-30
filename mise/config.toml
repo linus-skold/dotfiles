@@ -1,0 +1,94 @@
+[tools]
+"github:anomalyco/opencode" = "latest"
+node = { version = "24", postinstall = "npm i -g copilot" }
+
+[tasks.mac]
+run = "echo C8:5E:A9:11:7B:55 | clip"
+
+[tasks."install:node"]
+description = "Install Node.js and global packages"
+dir = "~/.config/.lint"
+run = "npm i eslint @eslint/js typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-html stylelint stylelint-config-standard-scss"
+
+[tasks.copilot]
+run = "mise x node@24 -- copilot"
+
+[tasks."lint:js"]
+shell = "pwsh -NoProfile -Command"
+hide = true
+usage = '''
+arg "[paths]" var=#true help="Paths or globs to lint"
+'''
+description = "Run ESLint"
+run = "mise x node@24 -- npx eslint . --ext .js,.jsx,.ts,.tsx --config ~/.config/.lint/eslint.config.js"
+run_windows = '''
+. "$env:USERPROFILE\spinner.ps1"
+$paths = $env:USAGE_PATHS
+Invoke-Spinner `
+  "mise x node@24 -- npx eslint $paths --ext .js,.jsx,.ts,.tsx --config $env:USERPROFILE\.config\.lint\eslint.config.js" `
+  "Running ESLint"
+'''
+
+[tasks."lint:css"]
+shell = "pwsh -NoProfile -Command"
+hide = true
+usage = '''
+arg "[paths]" var=#true help="Paths or globs to lint"
+'''
+description = "Run Stylelint for SCSS"
+run = "mise x node@24 -- npx stylelint \"**/*.scss\" -c ~/.config/.lint/stylelint.config.cjs"
+run_windows = '''
+. "$env:USERPROFILE\spinner.ps1"
+Invoke-Spinner `
+    "mise x node@24 -- npx stylelint **/*.scss -c $env:USERPROFILE\.config\.lint\stylelint.config.cjs" `
+    "Running Stylelint"
+'''
+
+[tasks.lint]
+description = "Run JS and CSS linters"
+usage = '''
+arg "<lint>" help="Which linter to run (js, css, or all)" {
+    choices "js" "css" "all"
+}
+arg "[paths]" var=#true help="Paths or globs to lint (optional, defaults to current directory)"
+'''
+run = "mise run lint:${usage_lint} ${usage_paths:-.}"
+run_windows = "mise run lint:%usage_lint% %usage_paths%"
+
+[tasks.clip]
+description = "Copy output of a command to clipboard"
+usage = '''arg "<command>" help="The command to run and copy its output"
+'''
+run = "mise x node@24 -- npx clipboardy ${usage_command}"
+run_windows = "clip < %usage_command%"
+
+[tasks.iis]
+description="Show iis sites"
+shell = "pwsh -NoProfile -Command"
+run_windows = '''
+Import-Module WebAdministration
+
+Get-Website | ForEach-Object {
+    $site = $_
+    $bindings = ($site.Bindings.Collection | ForEach-Object {
+        $_.bindingInformation
+    }) -join "; "
+
+    [PSCustomObject]@{
+        Name        = $site.Name
+        State       = $site.State
+        PhysicalPath= $site.PhysicalPath
+        Bindings    = $bindings
+    }
+}
+'''
+
+[tasks.vs]
+description="Launch Visual Studio with Admin"
+shell = "pwsh -NoProfile -Command"
+usage = '''
+arg "<solution>" help="The .sln/.slnx file to open Visual Studio with"
+'''
+run_windows = "gsudo -d devenv $env:usage_solution"
+
+
