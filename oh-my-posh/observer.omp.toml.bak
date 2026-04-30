@@ -1,0 +1,138 @@
+version = 3
+final_space = true
+
+[palette]
+  blue = '#8CAAEE'
+  closer = 'p:os'
+  lavender = '#BABBF1'
+  node_green = '#6ca35e'
+  orange = '#ffaf00'
+  os = '#ACB0BE'
+  pink = '#F4B8E4'
+  white = '#FFFFFF'
+  half_dark_bg = '#303446'
+  knowit_pink = '#e9aeca'
+
+[transient_prompt]
+  template = '{{ .Shell }} 󰅂 '
+  foreground = 'p:blue'
+  background = 'transparent'
+
+[upgrade]
+  source = 'cdn'
+  interval = '168h'
+  auto = false
+  notice = false
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+     
+  [[blocks.segments]]
+    template = "  "
+    type = "root"
+    style = "powerline"
+    powerline_symbol = ""
+    background = "#ffff66"
+    foreground = "#111111"
+
+  [[blocks.segments]]
+    template = ' {{ .Name }} '
+    foreground = 'p:os'
+    type = 'shell'
+    style = 'powerline'
+    powerline_symbol = ''
+    background = 'p:half_dark_bg'
+
+  [[blocks.segments]]
+    template = '  {{.RepoName}} '
+    foreground = 'p:white'
+    background = 'p:blue'
+    background_templates = [ "{{ if contains \"knowit\" .User.Email }}p:knowit_pink{{ end }}", "{{ if contains \"Linus\" .User}}p:pink{{ end }}" ]
+    type = 'git'
+    style = 'powerline'
+    powerline_symbol = ''
+    [blocks.segments.properties]
+     fetch_user = true 
+
+
+  [[blocks.segments]]
+    template = '{{ if glob ".git" }} {{else}}  {{ .Path }} {{end}}'
+    foreground = 'p:pink'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      folder_icon = ''
+      home_icon = '~'
+      style = 'folder'
+
+  [[blocks.segments]]
+    template = ' {{ .HEAD }} '
+    foreground = 'p:lavender'
+    type = 'git'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      cherry_pick_icon = ' '
+      commit_icon = ' '
+      fetch_status = true
+      fetch_upstream_icon = false
+      merge_icon = ' '
+      no_commits_icon = ' '
+      rebase_icon = ' '
+      revert_icon = ' '
+      tag_icon = ' '
+
+  [[blocks.segments]]
+    template = '{{if gt .Ahead 0 }}↑{{ .Ahead }}{{end}} {{if gt .Behind 0 }}↓{{ .Behind }}{{end}}'
+    type = 'git'
+    style = 'diamond'
+    leading_diamond = ''
+    trailing_diamond = ' '
+    background = 'p:blue'
+    foreground = 'transparent'
+
+    [blocks.segments.properties]
+      fetch_status = true
+
+  [[blocks.segments]]
+    template = '{{ if or .Working.Changed .Staging.Added }}{{end}} '
+    foreground = 'p:lavender'
+    type = 'git'
+    style = 'plain'
+    foreground_templates = ['{{ if .Working.Deleted }}#ff7777 {{ end }}', '{{ if or .Working.Modified .Working.Untracked }}#ffff00 {{ end }}', '{{ if or .Staging.Added .Working.Deleted }}p:node_green{{ end }}']
+
+    [blocks.segments.properties]
+      fetch_status = true
+
+  [[blocks.segments]]
+    template = '󰅂'
+    foreground = 'p:closer'
+    type = 'text'
+    style = 'plain'
+
+[[blocks]]
+  type = 'rprompt'
+  alignment = 'right'
+    
+  [[blocks.segments]]
+    template = ' {{ .FormattedMs }} '
+    foreground = 'p:blue'
+    type = 'executiontime'
+    style = 'plain'
+    [blocks.segments.properties]
+      threshold = 0
+
+
+  [[blocks.segments]]
+    template = ' {{ .Full }} '
+    foreground = 'p:node_green'
+    type = 'node'
+    style = 'plain'
+
+  [[blocks.segments]]
+    foreground = 'p:closer'
+    type = 'time'
+    style = 'plain'

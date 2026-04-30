@@ -1,0 +1,136 @@
+version = 3
+final_space = true
+
+[palette]
+  # Core UI
+  shell_fg             = '#ACB0BE'
+  shell_bg             = '#303446'
+  accent               = '#8CAAEE'
+  path_fg              = '#F4B8E4'
+  root_bg              = '#ffff66'
+  closer               = 'p:shell_fg'
+
+  # Git
+  git_branch_fg        = '#BABBF1'
+  git_repo_fg          = '#FFFFFF'
+  git_status_fg        = '#6ca35e'
+
+  # Git profile colours — add more git_profile_* entries to extend
+  git_profile_personal = '#F4B8E4'   # matched by .User name
+  git_profile_work     = '#e9aeca'   # matched by .User.Email domain
+
+[transient_prompt]
+  template = '{{ .Shell }} 󰅂 '
+  foreground = 'p:accent'
+
+[upgrade]
+  source = 'cdn'
+  interval = '168h'
+  auto = false
+  notice = false
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+     
+  [[blocks.segments]]
+    template = "  "
+    type = "root"
+    style = "diamond"
+    leading_diamond = ""
+    trailing_diamond = ""
+    background = 'p:root_bg'
+    foreground = "#111111"
+
+  [[blocks.segments]]
+    template = '  {{.RepoName}}  '
+    foreground = 'p:git_repo_fg'
+    background = 'p:accent'
+    background_templates = [ "{{ if contains \"knowit\" .User.Email }}p:git_profile_work{{ end }}", "{{ if contains \"Linus\" .User}}p:git_profile_personal{{ end }}" ]
+    type = 'git'
+    style = 'diamond'
+    leading_diamond = ''
+    trailing_diamond = ''
+    [blocks.segments.properties]
+     fetch_user = true 
+
+
+  [[blocks.segments]]
+    template = '{{ if glob ".git" }} {{else}}  {{ .Path }} {{end}}'
+    foreground = 'p:path_fg'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      folder_icon = ''
+      home_icon = '~'
+      style = 'folder'
+
+  [[blocks.segments]]
+    template = ' {{ .HEAD }} '
+    foreground = 'p:git_branch_fg'
+    type = 'git'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      cherry_pick_icon = ' '
+      commit_icon = ' '
+      fetch_status = true
+      fetch_upstream_icon = false
+      merge_icon = ' '
+      no_commits_icon = ' '
+      rebase_icon = ' '
+      revert_icon = ' '
+      tag_icon = ' '
+
+  [[blocks.segments]]
+    template = '{{if gt .Ahead 0 }}↑{{ .Ahead }}{{end}} {{if gt .Behind 0 }}↓{{ .Behind }}{{end}}'
+    type = 'git'
+    style = 'diamond'
+    leading_diamond = ''
+    trailing_diamond = ' '
+    background = 'p:accent'
+
+    [blocks.segments.properties]
+      fetch_status = true
+
+  [[blocks.segments]]
+    template = '{{ if or .Working.Changed .Staging.Added }}{{end}} '
+    foreground = 'p:git_branch_fg'
+    type = 'git'
+    style = 'plain'
+    foreground_templates = ['{{ if .Working.Deleted }}#ff7777 {{ end }}', '{{ if or .Working.Modified .Working.Untracked }}#ffff00 {{ end }}', '{{ if or .Staging.Added .Working.Deleted }}p:git_status_fg{{ end }}']
+
+    [blocks.segments.properties]
+      fetch_status = true
+
+  [[blocks.segments]]
+    template = '󰅂'
+    foreground = 'p:closer'
+    type = 'text'
+    style = 'plain'
+
+[[blocks]]
+  type = 'rprompt'
+  alignment = 'right'
+    
+  [[blocks.segments]]
+    template = ' {{ .FormattedMs }} '
+    foreground = 'p:accent'
+    type = 'executiontime'
+    style = 'plain'
+    [blocks.segments.properties]
+      threshold = 0
+
+
+  [[blocks.segments]]
+    template = ' {{ .Full }} '
+    foreground = 'p:git_status_fg'
+    type = 'node'
+    style = 'plain'
+
+  [[blocks.segments]]
+    foreground = 'p:closer'
+    type = 'time'
+    style = 'plain'
