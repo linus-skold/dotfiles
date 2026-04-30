@@ -13,8 +13,5 @@ win = "~/.gitconfig"
 [mise]
 win = "~/.config/mise"
 
-[nushell-config]
-win = "~/AppData/Roaming/nushell/config.nu"
-
 [nvim]
 win = "~/AppData/Local/nvim"
