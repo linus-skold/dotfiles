@@ -25,11 +25,11 @@
 [diff]
     colorMoved = default
 
+[include]
+    path = ~/.dot/git/personal
+
 [includeif "gitdir:~/work/"]
     path = ~/.dot/git/work
-
-[includeif "gitdir:~/personal/"]
-    path = ~/.dot/git/personal
 
 [include]
     path = ~/.dot/git/alias
