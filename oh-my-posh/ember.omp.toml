@@ -34,10 +34,18 @@ final_space = true
   alignment = 'left'
      
   [[blocks.segments]]
+    type = "os"
+    style = "diamond"
+    foreground = 'p:shell_fg'
+    background = 'p:shell_bg'
+    template = " {{ if .WSL }}WSL at {{end}}{{.Icon}} "
+    leading_diamond = ""
+    trailing_diamond = "" 
+
+  [[blocks.segments]]
     template = "  "
     type = "root"
     style = "diamond"
-    leading_diamond = ""
     trailing_diamond = ""
     background = 'p:root_bg'
     foreground = "#111111"
@@ -49,8 +57,7 @@ final_space = true
     background_templates = [ "{{ if contains \"knowit\" .User.Email }}p:git_profile_work{{ end }}", "{{ if contains \"Linus\" .User}}p:git_profile_personal{{ end }}" ]
     type = 'git'
     style = 'diamond'
-    leading_diamond = ''
-    trailing_diamond = ''
+    trailing_diamond = ""
     [blocks.segments.properties]
      fetch_user = true 
 

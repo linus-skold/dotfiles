@@ -8,4 +8,9 @@ def initialize [] {
 
 $env.config.show_banner = false
 
+def set_env [key value] {
+  ^pwsh -NoProfile -c '[System.Environment]::SetEnvironmentVariable(($key), ($value), "User")'
 
+# System variable (run Nushell as admin)
+# ^powershell -Command '[System.Environment]::SetEnvironmentVariable("MY_VAR", "hello", "Machine")'
+}

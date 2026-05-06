@@ -1,6 +1,7 @@
 [tools]
 "github:anomalyco/opencode" = "latest"
 node = { version = "24", postinstall = "npm i -g copilot" }
+"npm:eslint_d" = "latest"
 
 [tasks.mac]
 run = "echo C8:5E:A9:11:7B:55 | clip"

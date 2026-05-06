@@ -1,5 +1,5 @@
 [user]
     # create a ssh key with ssh-keygen -t ed25519 -C "your@email.com"
-    signingkey = 
+    signingkey = ~/.ssh/github.pub 
 	name = Linus Sköld
 	email = contact@linusskold.com 

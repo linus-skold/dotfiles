@@ -28,7 +28,7 @@
 [include]
     path = ~/.dot/git/personal
 
-[includeif "gitdir:~/work/"]
+[includeif "gitdir/i:**/work/**"]
     path = ~/.dot/git/work
 
 [include]
