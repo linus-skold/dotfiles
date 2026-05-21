@@ -1,6 +1,7 @@
 [tools]
 "github:anomalyco/opencode" = "latest"
 node = { version = "24", postinstall = "npm i -g copilot" }
+"npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:eslint_d" = "latest"
 
 [tasks.mac]
