@@ -38,7 +38,7 @@ final_space = true
     style = "diamond"
     foreground = 'p:shell_fg'
     background = 'p:shell_bg'
-    template = " {{ if .WSL }}WSL at {{end}}{{.Icon}} "
+    template = " {{ if .WSL }}WSL at {{end}}{{.Icon}}  "
     leading_diamond = ""
     trailing_diamond = "" 
 
