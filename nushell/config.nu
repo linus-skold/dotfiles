@@ -37,6 +37,49 @@ def "td add" [...tasks: string] {
   obsidian daily:append content=$"($content)"
 }
 
+def wt-path [] {
+    let worktrees = (git worktree list
+        | lines
+        | each {|line|
+            let parts = ($line | split row ' ' | where { |p| $p != '' })
+            {
+                path: ($parts | get 0),
+                hash: ($parts | get 1),
+                branch: ($parts | get 2? | default '(detached)')
+            }
+        }
+    )
+
+    $worktrees | select path branch | input list --fuzzy "Select worktree:"
+}
+
+def wt-root [] {
+    git worktree list
+    | lines
+    | first
+    | split row ' '
+    | first
+}
+
+def wt-add [
+    branch: string,          # existing branch, or name for new branch
+    --new: string            # base branch if creating new
+] {
+    let root = (wt-root)
+    let dest = $"($root)/($branch)"
+
+    if ($new | is-empty) {
+        git -C $root worktree add $dest $branch
+    } else {
+        git -C $root worktree add -b $branch $dest $new
+    }
+
+    cd $dest
+}
+
+# Then use it like:
+alias wt = cd (wt-path | get path)
+
 alias fdh = fd -h
 alias la = ls -a
 alias vi = nvim
@@ -44,4 +87,6 @@ alias vim = nvim
 alias nv = nvim
 # alias dump = obsidian create path="inbox/" content=
 
+alias gco = git worktree add
+alias gcl = git clone --bare 
 
