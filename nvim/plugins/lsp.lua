@@ -68,6 +68,10 @@ return {
 				},
 			})
 
+            vim.lsp.config("gopls", {
+                filetypes = { "go", "gomod", "gosum", "gowork", "mod", "sum" },
+            })
+
 			-- NOTE: The following servers were previously managed by Mason.
 			-- Install them manually and ensure they are on your PATH:
 			--   ts_ls        → npm install -g typescript-language-server typescript
@@ -77,7 +81,7 @@ return {
 			--   cssls        → npm install -g vscode-langservers-extracted
 			--   omnisharp    → dotnet tool install -g OmniSharp  (or via VS / Build Tools)
 			--   clangd       → winget install LLVM.LLVM  (ships with clangd)
-			vim.lsp.enable({ "ts_ls", "rust_analyzer", "lua_ls", "html", "cssls", "omnisharp", "clangd" })
+			vim.lsp.enable({ "ts_ls", "rust_analyzer", "lua_ls", "html", "cssls", "omnisharp", "clangd", "gopls" })
 		end,
 	},
 }

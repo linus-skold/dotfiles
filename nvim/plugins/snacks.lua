@@ -89,7 +89,7 @@ return {
 		words = { enabled = true },
 		styles = {
 			notification = {},
-			terminal = { position = "right" },
+			terminal = { position = "bottom" },
 		},
 	},
     -- stylua: ignore start
@@ -108,6 +108,7 @@ return {
         { "<leader>gl",      function() Snacks.lazygit.log() end,                                     desc = "Lazygit Log (cwd)", },
         { "<leader>un",      function() Snacks.notifier.hide() end,                                   desc = "Dismiss All Notifications", },
         { "<leader>tT",      function() Snacks.terminal.toggle() end,                                 desc = "Toggle Terminal", },
+        { "tt",      function() Snacks.terminal.focus() end,                                 desc = "Toggle Terminal", mode = { "n" } },
         { "<leader>tF",      function() Snacks.terminal.open(nil, { win = { style = "float" } }) end, desc = "Toggle Floating Terminal", },
         { "]]",              function() Snacks.words.jump(vim.v.count1) end,                          desc = "Next Reference",               mode = { "n", "t" }, },
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                         desc = "Prev Reference",               mode = { "n", "t" }, },

@@ -3,8 +3,13 @@ return {
 	name = "nvim-ask",
 	lazy = false,
 	opts = {
-		model = "claude-haiku-4.5",
 		verbose = false,
+		backend = {
+			provider = "llamacpp",
+			model    = "random model name here",
+			host     = "127.0.0.1",
+			port     = 8080,
+		},
 	},
 	config = function(_, opts)
 		require("ask").setup(opts)
