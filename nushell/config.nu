@@ -2,6 +2,7 @@
 $env.EDITOR = 'nvim'
 $env.VISUAL = 'nvim'
 $env.config.show_banner = false
+$env.SOPS_AGE_KEY_FILE = ('~/.config/sops/age/key.txt' | path expand ) 
 
 def initialize [] {
   oh-my-posh init nu --config ~/.dot/oh-my-posh/ember.omp.toml

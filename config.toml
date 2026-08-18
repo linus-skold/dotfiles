@@ -1,0 +1,44 @@
+onboarding = false
+[update]
+channel = "preview"
+
+[ui.sound]
+enabled = false
+
+[ui.toast]
+delivery = "herdr"
+
+[ui]
+show_agent_labels_on_pane_borders = false
+
+[terminal]
+default_shell = "nu"
+
+[keys]
+switch_tab = "prefix+1..9"
+focus_pane_down = "alt+down"
+focus_pane_up = "alt+up"
+focus_pane_right = "alt+right"
+focus_pane_left = "alt+left"
+workspace_picker = "ctrl+w"
+
+
+[[keys.command]]
+key = "prefix+alt+g"
+type = "popup"
+command = "lazygit"
+description = "run lazygit"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+t"
+type = "popup"
+command = "exec \"${SHELL:-sh}\""
+description = "open scratch terminal"
+width = "80%"
+height = "80%"
+
+[theme]
+name = "catppuccin"
+auto_switch = false

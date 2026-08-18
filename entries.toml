@@ -7,6 +7,9 @@ win = "~/AppData/Roaming/Zellij"
 [alacritty]
 win = "~/AppData/Roaming/alacritty"
 
+["config.toml"]
+win = "config.toml"
+
 [gitconfig-win]
 win = "~/.gitconfig"
 
