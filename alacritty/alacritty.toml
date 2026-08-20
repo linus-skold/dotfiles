@@ -4,9 +4,12 @@ import = [
 ]
 
 [terminal]
-shell = "zellij"
+shell = "herdr"
 
 [font]
-normal = { family = "CaskaydiaMono Nerd Font Mono", style = "Regular" }
+normal = { family = "CaskaydiaMono Nerd Font Mono", style = "Mono" }
 
-
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
