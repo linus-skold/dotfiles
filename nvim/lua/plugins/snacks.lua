@@ -49,22 +49,26 @@ return {
                     end,
                 },
 				{ section = "startup" },
-				{
-					text = (function()
-						local t = {
-							{ "Neovim", hl = "header" },
-							{ " v" },
-							{ vc.get_current() },
-						}
+				-- A function, so the dashboard rebuilds it on update() after the
+				-- background version fetch finishes.
+				function()
+					vc.refresh(function()
+						Snacks.dashboard.update()
+					end)
 
-						if vc.update_available() then
-							table.insert(t, { " -> v" .. vc.get_latest(), hl = "Special" })
-						end
+					local t = {
+						{ "Neovim", hl = "header" },
+						{ " v" },
+						{ vc.get_current() },
+					}
 
-						return t
-					end)(),
-					align = "center",
-				},
+					local newer, latest = vc.update_available()
+					if newer then
+						table.insert(t, { " -> v" .. latest, hl = "Special" })
+					end
+
+					return { text = t, align = "center" }
+				end,
 			},
 		},
 		picker = {

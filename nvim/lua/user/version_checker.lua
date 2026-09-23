@@ -39,22 +39,33 @@ local function write_cache(version)
 	uv.fs_close(fd)
 end
 
--- Fetch remote version
-local function fetch_remote_version()
-	local result = vim.system(
-		{ "curl", "-s", "https://api.github.com/repos/neovim/neovim/releases/latest" },
-		{ text = true }
-	)
-		:wait()
-
-	if result and result.stdout then
-		local version = result.stdout:match('"tag_name":%s*"v([%d%.]+)"')
+-- Fetch remote version in the background. Calls on_done(version) on the main loop.
+local fetching = false
+local function fetch_remote_version(on_done)
+	if fetching then
+		return
+	end
+	fetching = true
+	vim.system({
+		"curl",
+		"-s",
+		"--connect-timeout",
+		"1",
+		"--max-time",
+		"2",
+		"https://api.github.com/repos/neovim/neovim/releases/latest",
+	}, { text = true }, function(result)
+		local version = result.stdout and result.stdout:match('"tag_name":%s*"v([%d%.]+)"')
 		if version then
 			write_cache(version)
-			return version
 		end
-	end
-	return nil
+		vim.schedule(function()
+			fetching = false
+			if version and on_done then
+				on_done(version)
+			end
+		end)
+	end)
 end
 
 -- Parse version string into table
@@ -78,8 +89,16 @@ local function is_version_greater(v1, v2)
 	end
 end
 
+-- Returns the cached version, or nil. Never blocks on the network.
 function M.get_latest()
-	return read_cache() or fetch_remote_version()
+	return read_cache()
+end
+
+-- Fetches the latest version in the background when the cache is missing or old.
+function M.refresh(on_done)
+	if not read_cache() then
+		fetch_remote_version(on_done)
+	end
 end
 
 function M.get_current()
