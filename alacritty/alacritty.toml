@@ -1,13 +1,11 @@
 [general]
 import = [
     "~/themes/alacritty/ember.toml"
-]
-
-[terminal]
-shell = "herdr"
+] 
 
 [font]
 normal = { family = "CaskaydiaMono Nerd Font Mono", style = "Mono" }
+
 
 [[keyboard.bindings]]
 key = "Return"
