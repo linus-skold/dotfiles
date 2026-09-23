@@ -39,5 +39,54 @@ width = "80%"
 height = "80%"
 
 [theme]
-name = "catppuccin"
-auto_switch = false
+# Base builtin under the Ember overrides below — warm dark so any field
+# Ember does not override stays in the same family.
+#name = "gruvbox"
+#name = "catppuccin"
+#name = "custom"
+#auto_switch = false
+
+# ---------------------------------------------------------------------------
+# Ember — dark graphite, L10%   https://github.com/ember-theme/ember
+# Matches alacritty/themes/ember.toml. Active.
+# To switch to Ember Soft: comment this block out and uncomment the one below.
+# ---------------------------------------------------------------------------
+[theme.custom]
+panel_bg      = "#1c1b19"   # bg
+surface_dim   = "#151412"   # base0
+surface0      = "#252422"   # base2
+surface1      = "#2e2d2a"   # base3
+overlay0      = "#585550"   # base5
+overlay1      = "#706c61"   # base6
+text          = "#d8d0c0"   # fg — warm ivory
+subtext0      = "#b0a898"   # fg_alt
+red           = "#b07878"   # rose
+green         = "#8a9868"   # olive
+yellow        = "#c8b468"   # gold
+blue          = "#7890a0"   # steel
+mauve         = "#988090"   # mauve
+teal          = "#80a090"   # sage
+peach         = "#c09058"   # orange
+accent        = "#e08060"   # coral — hero accent
+
+# ---------------------------------------------------------------------------
+# Ember Soft — lifted graphite, L13%
+# Matches alacritty/themes/ember-soft.toml.
+# ---------------------------------------------------------------------------
+# [theme.custom]
+# panel_bg      = "#242320"   # bg
+# surface_dim   = "#1c1b19"   # base0
+# surface0      = "#2c2b28"   # base2
+# surface1      = "#353430"   # base3
+# overlay0      = "#585550"   # base5
+# overlay1      = "#706c61"   # base6
+# text          = "#d8d0c0"   # fg — warm ivory
+# subtext0      = "#b0a898"   # fg_alt
+# red           = "#b07878"   # rose
+# green         = "#8a9868"   # olive
+# yellow        = "#c8b468"   # gold
+# blue          = "#7890a0"   # steel
+# mauve         = "#988090"   # mauve
+# teal          = "#80a090"   # sage
+# peach         = "#c09058"   # orange
+# accent        = "#e08060"   # coral — hero accent
