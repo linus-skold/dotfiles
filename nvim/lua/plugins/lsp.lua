@@ -18,13 +18,13 @@ return {
 			-- Must run before any .prisma buffer is opened so the server can attach.
 			vim.filetype.add({ extension = { prisma = "prisma" } })
 
-			-- ── Shared capabilities / on_attach ───────────────────────────────────
+			-- ── Shared capabilities ───────────────────────────────────────────────
+			-- Plain client capabilities are correct for mini.completion. Check this
+			-- again if you change the completion plugin.
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			local function on_attach(client, bufnr) end
 
 			vim.lsp.config("*", {
 				capabilities = capabilities,
-				on_attach = on_attach,
 			})
 
 			-- ── ts_ls ─────────────────────────────────────────────────────────────
