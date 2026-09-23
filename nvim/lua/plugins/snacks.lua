@@ -89,7 +89,7 @@ return {
 		quickfile = { enabled = true },
 		scroll = { enabled = true },
 		statuscolumn = { enabled = true },
-		terminal = { enabled = true, shell = "nu" },
+		terminal = { enabled = true, shell = vim.fn.executable("nu") == 1 and "nu" or vim.o.shell },
 		words = { enabled = true },
 		styles = {
 			notification = {},
