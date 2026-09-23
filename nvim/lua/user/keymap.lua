@@ -1,6 +1,6 @@
 local reload_module = require("user.utils").reload_module
 
-function remap(mode, keybinding, command, options)
+local function remap(mode, keybinding, command, options)
 	options = options or { noremap = true, silent = true }
 	if type(command) == "string" then
 		command = "<cmd>" .. command .. "<CR>"
@@ -8,19 +8,19 @@ function remap(mode, keybinding, command, options)
 	vim.keymap.set(mode, keybinding, command, options)
 end
 
-function nremap(keybinding, command, options)
+local function nremap(keybinding, command, options)
 	remap("n", keybinding, command, options)
 end
 
-function imemap(keybinding, command, options)
+local function imemap(keybinding, command, options)
 	remap("i", keybinding, command, options)
 end
 
-function tremap(keybinding, command, options)
+local function tremap(keybinding, command, options)
 	remap("t", keybinding, command, options)
 end
 
-function vremap(keybinding, command, options)
+local function vremap(keybinding, command, options)
 	remap("v", keybinding, command, options)
 end
 
