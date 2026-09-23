@@ -4,6 +4,8 @@
     editor = nvim
     pager = delta
 	excludeFile = ~/.gitignore
+    autocrlf = input 
+    eol = lf
 
 [gpg]
     format = ssh

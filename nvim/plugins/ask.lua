@@ -1,14 +1,13 @@
+-- nvim-ask lives in its own repository: ~/dev/ask
 return {
-	dir = vim.fn.stdpath("config"),
+	dir = vim.fn.expand("~/dev/ask"),
 	name = "nvim-ask",
 	lazy = false,
 	opts = {
 		verbose = false,
 		backend = {
-			provider = "llamacpp",
-			model    = "random model name here",
-			host     = "127.0.0.1",
-			port     = 8080,
+			provider = "copilot",
+			model = "claude-haiku-4.5",
 		},
 	},
 	config = function(_, opts)
