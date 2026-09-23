@@ -1,7 +1,7 @@
+-- Not the default theme. Select it with the colorscheme picker (<leader>uC).
 return {
 	"catppuccin/nvim",
 	name = "catppuccin",
-	priority = 1000,
 	lazy = false,
 	opts = {
 		flavour = "mocha",
@@ -12,8 +12,4 @@ return {
 			bufferline = true,
 		},
 	},
-	config = function(_, opts)
-		require("catppuccin").setup(opts)
-		vim.cmd.colorscheme("catppuccin-mocha")
-	end,
 }
