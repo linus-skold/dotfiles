@@ -89,3 +89,30 @@ vim.keymap.set("n", "<leader>p", "\"+p")
 vim.keymap.set("n", "<leader>P", "\"+P")
 
 
+-- Cycle a markdown checkbox:  [ ] → [~] → [x] → [ ]
+local CHECKBOX_NEXT = { [" "] = "~", ["~"] = "x", ["x"] = " " }
+
+local function cycle_checkbox()
+	local line = vim.api.nvim_get_current_line()
+	local prefix, mark, rest = line:match("^(%s*[-*+]%s+%[)(.)(%].*)$")
+	if not mark then
+		return
+	end
+	local next_mark = CHECKBOX_NEXT[mark:lower()] or " "
+	vim.api.nvim_set_current_line(prefix .. next_mark .. rest)
+end
+
+-- Do not map this to <leader>x. Trouble owns <leader>xx, so <leader>x is only a
+-- prefix and Vim waits 'timeoutlen' (1000 ms) before it runs. Both keys below
+-- are leaves, so they fire at once.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function(args)
+		for _, lhs in ipairs({ "<leader>tt", "<C-Space>" }) do
+			vim.keymap.set("n", lhs, cycle_checkbox, {
+				buffer = args.buf,
+				desc = "Cycle checkbox state",
+			})
+		end
+	end,
+})
