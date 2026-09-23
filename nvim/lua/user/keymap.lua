@@ -74,8 +74,6 @@ nremap("<A-o>", function()
 	end)
 end, { desc = "C++: switch header/source" })
 
-nremap("<leader>sr", "lua require('telescope').extensions.git_worktree.git_worktrees()", { noremap = true, silent = true, desc = "Git Worktrees" })
-nremap("<leader>sR", "lua require('telescope').extensions.git_worktree.create_git_worktree()", { noremap = true, silent = true, desc = "Create Git Worktree" })
 nremap("<leader>sC", "nohl", { noremap = true, silent = true, desc = "Clear Search Highlight" })
 
 vim.keymap.set("v", "<leader>y", "\"+y")

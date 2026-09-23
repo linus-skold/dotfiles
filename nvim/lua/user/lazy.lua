@@ -22,14 +22,3 @@ require("lazy").setup({
 		{ import = "plugins" },
 	},
 })
-
--- Defer worktree + telescope extension setup until after all plugins are loaded
---
-vim.api.nvim_create_autocmd("User", {
-	pattern = "VeryLazy",
-	once = true,
-	callback = function()
-		require("git-worktree").setup()
-		require("telescope").load_extension("git_worktree")
-	end,
-})
