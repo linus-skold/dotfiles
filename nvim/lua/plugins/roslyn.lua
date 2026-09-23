@@ -1,23 +1,11 @@
 -- C# / .NET via the official Roslyn language server (same one VS Code uses).
 --
--- Requirements:
---   • Neovim >= 0.12  (plugin will warn and bail out on older versions)
---   • dotnet SDK >= 10 recommended
+-- First-time setup:
+--   1. :Lazy install   (installs the plugin)
+--   2. :RoslynInstall  (downloads Microsoft.CodeAnalysis.LanguageServer via dotnet)
 --
--- Install the language server binary (pick one):
---   A) dotnet global tool (no Mason needed):
---        dotnet tool install -g Microsoft.CodeAnalysis.LanguageServer
---      The binary lands in ~/.dotnet/tools/ which should already be on PATH.
---
---   B) Via Mason (if you ever add it):
---        :MasonInstall roslyn
---
--- After install, run :checkhealth roslyn to verify everything is found.
---
--- Useful commands (once a .cs file is open):
---   :Roslyn target   — pick which .sln to use when multiple are detected
---   :lsp restart roslyn
---   :lsp stop roslyn
+-- Supports .NET Core, .NET 5+, and .NET Framework projects.
+-- Solution picker appears automatically when multiple .sln files are found.
 return {
 	{
 		"seblyng/roslyn.nvim",
@@ -25,6 +13,7 @@ return {
 		config = function()
 			require("roslyn").setup({
 				config = {
+					-- Settings use the VS Code key format: "section|subsection"
 					settings = {
 						["csharp|inlay_hints"] = {
 							csharp_enable_inlay_hints_for_implicit_object_creation = true,
