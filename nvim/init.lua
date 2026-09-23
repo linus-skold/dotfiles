@@ -12,6 +12,10 @@ vim.opt.listchars = { space = ".", tab = ">-" }
 vim.opt.list = true
 vim.opt.exrc = true  -- load .nvim.lua from project root (secured by vim.secure)
 
+-- Set the leader keys before lazy.nvim reads the plugin keymaps.
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 require("user.lazy")
 require("user.keymap")
 require("user.lsp_info")
