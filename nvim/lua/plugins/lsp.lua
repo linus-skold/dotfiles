@@ -27,9 +27,22 @@ return {
 				capabilities = capabilities,
 			})
 
+			-- ── npm-installed servers on Windows ──────────────────────────────────
+			-- npm installs these as .cmd shims. libuv cannot spawn a .cmd by its bare
+			-- name (ENOENT), so name the shim explicitly.
+			local function npm_cmd(name, ...)
+				if vim.fn.has("win32") == 1 then
+					name = name .. ".cmd"
+				end
+				return { name, ... }
+			end
+
+			vim.lsp.config("cssls", { cmd = npm_cmd("vscode-css-language-server", "--stdio") })
+
 			-- ── ts_ls ─────────────────────────────────────────────────────────────
 			-- Restrict to JS/TS only — do NOT attach to cshtml/razor/html.
 			vim.lsp.config("ts_ls", {
+				cmd = npm_cmd("typescript-language-server", "--stdio"),
 				filetypes = {
 					"javascript", "javascriptreact",
 					"javascript.jsx", "typescript",
@@ -39,6 +52,7 @@ return {
 
 			-- ── html ──────────────────────────────────────────────────────────────
 			vim.lsp.config("html", {
+				cmd = npm_cmd("vscode-html-language-server", "--stdio"),
 				filetypes = { "html" },
 			})
 
@@ -62,7 +76,7 @@ return {
 			-- ── prismals ──────────────────────────────────────────────────────────
 			-- Install: npm install -g @prisma/language-server
 			vim.lsp.config("prismals", {
-				cmd = { "prisma-language-server", "--stdio" },
+				cmd = npm_cmd("prisma-language-server", "--stdio"),
 				filetypes = { "prisma" },
 				root_markers = { "schema.prisma", "package.json", ".git" },
 				settings = {
@@ -74,6 +88,7 @@ return {
 			-- Schemas from schemastore.org match on file name (GitHub workflows,
 			-- docker-compose, etc.).
 			vim.lsp.config("yamlls", {
+				cmd = npm_cmd("yaml-language-server", "--stdio"),
 				settings = {
 					yaml = {
 						schemaStore = { enable = true },
