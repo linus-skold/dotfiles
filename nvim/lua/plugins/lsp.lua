@@ -43,6 +43,16 @@ return {
 			-- Restrict to JS/TS only — do NOT attach to cshtml/razor/html.
 			vim.lsp.config("ts_ls", {
 				cmd = npm_cmd("typescript-language-server", "--stdio"),
+				-- Projects use their own node_modules/typescript. Outside a project, fall
+				-- back to the global (mise) install, which the server cannot find itself.
+				init_options = (function()
+					local tsc = vim.fn.exepath("tsc")
+					if tsc == "" then
+						return nil
+					end
+					local lib = vim.fs.joinpath(vim.fs.dirname(vim.fs.dirname(tsc)), "typescript", "lib")
+					return { tsserver = { fallbackPath = lib } }
+				end)(),
 				filetypes = {
 					"javascript", "javascriptreact",
 					"javascript.jsx", "typescript",
@@ -97,19 +107,36 @@ return {
 				},
 			})
 
+			-- ── basedpyright + ruff (Python) ──────────────────────────────────────
+			-- basedpyright does types and hover; ruff does lint and quick fixes.
+			vim.lsp.config("basedpyright", {
+				cmd = npm_cmd("basedpyright-langserver", "--stdio"),
+			})
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(ev)
+					local client = vim.lsp.get_client_by_id(ev.data.client_id)
+					if client and client.name == "ruff" then
+						client.server_capabilities.hoverProvider = false -- basedpyright owns hover
+					end
+				end,
+			})
+
 			-- ── enabled servers ───────────────────────────────────────────────────
 			-- C# is handled by roslyn.nvim (see plugins/roslyn.lua), not listed here.
 			--
-			-- Install instructions (all must be on PATH):
-			--   ts_ls         npm install -g typescript-language-server typescript
+			-- Install (all must be on PATH; mise tools live in ~/.config/mise/config.toml):
+			--   ts_ls         mise use -g npm:typescript-language-server npm:typescript@6
+			--                 (TypeScript 7 is the native port and has no tsserver)
 			--   rust_analyzer rustup component add rust-analyzer
-			--   lua_ls        https://github.com/LuaLS/lua-language-server/releases
-			--   html / cssls  npm install -g vscode-langservers-extracted
-			--   clangd        winget install LLVM.LLVM
-			--   gopls         go install golang.org/x/tools/gopls@latest
+			--   lua_ls        mise use -g lua-language-server
+			--   html / cssls  mise use -g npm:vscode-langservers-extracted
+			--   clangd        mise use -g github:clangd/clangd
+			--   gopls         mise use -g go go:golang.org/x/tools/gopls
 			--   prismals      npm install -g @prisma/language-server
-			--   yamlls        npm install -g yaml-language-server
-			--   taplo         cargo install taplo-cli --locked --features lsp
+			--   yamlls        mise use -g npm:yaml-language-server
+			--   taplo         mise use -g taplo
+			--   basedpyright  mise use -g npm:basedpyright
+			--   ruff          mise use -g ruff
 			local configured_servers = {
 				"ts_ls", "rust_analyzer", "lua_ls",
 				"html", "cssls",
@@ -118,6 +145,7 @@ return {
 				"prismals",
 				"yamlls",
 				"taplo",
+				"basedpyright", "ruff",
 			}
 			vim.lsp.enable(configured_servers)
 
