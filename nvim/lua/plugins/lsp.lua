@@ -70,6 +70,18 @@ return {
 				},
 			})
 
+			-- ── yamlls ────────────────────────────────────────────────────────────
+			-- Schemas from schemastore.org match on file name (GitHub workflows,
+			-- docker-compose, etc.).
+			vim.lsp.config("yamlls", {
+				settings = {
+					yaml = {
+						schemaStore = { enable = true },
+						keyOrdering = false,
+					},
+				},
+			})
+
 			-- ── enabled servers ───────────────────────────────────────────────────
 			-- C# is handled by roslyn.nvim (see plugins/roslyn.lua), not listed here.
 			--
@@ -81,12 +93,16 @@ return {
 			--   clangd        winget install LLVM.LLVM
 			--   gopls         go install golang.org/x/tools/gopls@latest
 			--   prismals      npm install -g @prisma/language-server
+			--   yamlls        npm install -g yaml-language-server
+			--   taplo         cargo install taplo-cli --locked --features lsp
 			local configured_servers = {
 				"ts_ls", "rust_analyzer", "lua_ls",
 				"html", "cssls",
 				"clangd",
 				"gopls",
 				"prismals",
+				"yamlls",
+				"taplo",
 			}
 			vim.lsp.enable(configured_servers)
 
