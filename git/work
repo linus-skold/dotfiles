@@ -4,8 +4,3 @@
 	name = Linus Sköld
 	email = linus.skold@knowit.se
 
-[url "git@knowgit:knowit/"]
-	insteadof = https://github.com/knowit/
-
-[url "ssh://git@knowgit/knowit/"]
-	insteadof = ssh://git@github.com/knowit/

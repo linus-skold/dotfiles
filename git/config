@@ -44,4 +44,9 @@
 [include]
     path = ~/.dot/git/hooks
 
+[url "git@knowgit:knowit/"]
+	insteadof = https://github.com/knowit/
+
+[url "ssh://git@knowgit/knowit/"]
+	insteadof = ssh://git@github.com/knowit/
 
