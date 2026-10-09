@@ -3,13 +3,16 @@ onboarding = false
 channel = "preview"
 
 [ui.sound]
-enabled = false
+enabled = true
 
 [ui.toast]
-delivery = "herdr"
+delivery = "system"
 
 [ui]
-show_agent_labels_on_pane_borders = false
+show_agent_labels_on_pane_borders = true
+tab_bar_right = [
+    { type = "command", command = "pwsh -NoProfile -ExecutionPolicy Bypass -File \"./herdr/status.ps1\"", interval_seconds = 5, timeout_seconds = 2 }
+]
 
 [terminal]
 default_shell = "nu"
@@ -33,8 +36,16 @@ height = "80%"
 [[keys.command]]
 key = "prefix+t"
 type = "popup"
-command = "exec \"${SHELL:-sh}\""
+command = "nu"
 description = "open scratch terminal"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+alt+r"
+type = "popup"
+command = "tt tui"
+description = "Open timetracker tui"
 width = "80%"
 height = "80%"
 
