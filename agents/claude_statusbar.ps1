@@ -1,4 +1,4 @@
-# Claude Code status line: model | context bar | agent memory bar | running subagents.
+# Claude Code status line: model | context bar | 5-hour session usage | agent memory bar | running subagents.
 # Reads the status line JSON from stdin. Needs pwsh 7 (Process.Parent) and a truecolor terminal.
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -76,6 +76,21 @@ if ($null -ne $pct) {
     $ctx = "${dim}ctx $(Bar 0) --$reset"
 }
 
+# Session usage: 5-hour subscription limit, absent for API-key users and older Claude Code
+$fh = $data.rate_limits.five_hour
+if ($null -ne $fh -and $null -ne $fh.used_percentage) {
+    $spct = [double]$fh.used_percentage
+    $ses  = "${dim}ses$reset $(Bar $spct) $(Label $spct ('{0,3:0}%' -f $spct))"
+    if ($null -ne $fh.resets_at) {
+        $left = [math]::Max(0, [double]$fh.resets_at - [DateTimeOffset]::UtcNow.ToUnixTimeSeconds())
+        $mins = [int][math]::Floor($left / 60)
+        $when = if ($mins -ge 60) { '{0}h{1:00}m' -f [math]::Floor($mins / 60), ($mins % 60) } else { "${mins}m" }
+        $ses += "$dim $when$reset"
+    }
+} else {
+    $ses = "${dim}ses $(Bar 0) --$reset"
+}
+
 # Agent memory: working set of the nearest claude/node/bun ancestor process
 $mem = "${dim}mem $(Bar 0) --$reset"
 $cur = Get-Process -Id $PID
@@ -111,4 +126,4 @@ $agentsOut = if ($agents -gt 0) {
 }
 
 $sep = " $dim$([char]0x2502)$reset "
-Write-Output ("$bold$(Fg @(200, 160, 255))$model$reset" + $sep + $ctx + $sep + $mem + $sep + $agentsOut)
+Write-Output ("$bold$(Fg @(200, 160, 255))$model$reset" + $sep + $ctx + $sep + $ses + $sep + $mem + $sep + $agentsOut)
