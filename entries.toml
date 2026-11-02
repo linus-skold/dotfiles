@@ -1,17 +1,23 @@
 [".gitignore"]
 win = "~/.gitignore"
 
+["CLAUDE.md"]
+win = "~/.claude/CLAUDE.md"
+
 [Zellij]
 win = "~/AppData/Roaming/Zellij"
 
 [alacritty]
 win = "~/AppData/Roaming/alacritty"
 
-[herdr]
-win = "~/AppData/Roaming/herdr"
+[claude]
+win = "~/.claude/agents"
 
 [gitconfig-win]
 win = "~/.gitconfig"
+
+[herdr]
+win = "~/AppData/Roaming/herdr"
 
 [mise]
 win = "~/.config/mise"
