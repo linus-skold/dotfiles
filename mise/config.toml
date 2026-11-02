@@ -1,7 +1,5 @@
 [tools]
 node = "24"
-"github:anomalyco/opencode" = "latest"
-"npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:eslint_d" = "latest"
 "npm:hunkdiff" = "latest"
 watchexec = "latest"
