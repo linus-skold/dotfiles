@@ -11,6 +11,8 @@ vim.opt.syntax = "on"
 vim.opt.listchars = { space = ".", tab = ">-" }
 vim.opt.list = true
 vim.opt.exrc = true  -- load .nvim.lua from project root (secured by vim.secure)
+vim.opt.fileformat = "unix"
+vim.opt.fileformats = {"unix", "dos"}
 
 -- Set the leader keys before lazy.nvim reads the plugin keymaps.
 vim.g.mapleader = "\\"

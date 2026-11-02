@@ -113,6 +113,7 @@ return {
 		{ "<leader>un",      function() Snacks.notifier.hide() end,                                   desc = "Dismiss All Notifications", },
 		{ "<leader>tT",      function() Snacks.terminal.toggle() end,                                 desc = "Toggle Terminal", },
 		{ "<leader>tF",      function() Snacks.terminal.open(nil, { win = { style = "float" } }) end, desc = "Toggle Floating Terminal", },
+		{ "tt",              function() Snacks.terminal.focus() end,                                  desc = "Toggle Terminal", mode = { "n" } },
 		{ "]]",              function() Snacks.words.jump(vim.v.count1) end,                          desc = "Next Reference",               mode = { "n", "t" }, },
 		{ "[[",              function() Snacks.words.jump(-vim.v.count1) end,                         desc = "Prev Reference",               mode = { "n", "t" }, },
 		{ "<leader>qp",function() Snacks.picker.projects() end,                                 desc = "Projects", },
