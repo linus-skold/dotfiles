@@ -1,7 +1,7 @@
 [".gitignore"]
 win = "~/.gitignore"
 
-["CLAUDE.md"]
+["claude-instructions"]
 win = "~/.claude/CLAUDE.md"
 
 [Zellij]
